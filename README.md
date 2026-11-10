@@ -1,94 +1,39 @@
-Cursor AI Coding Playbook
+# AI Build Playbook
 
-Lightweight rules to help AI copilots write better code, reduce compute cost, and keep teams moving fast.
+How I build products with AI coding agents: the working agreement, plan and handoff templates I use
+with Codex and Claude, and what they've caught in practice.
 
-This repo contains the Cursor Rules I use across projects to ensure high-quality output, predictable model behavior, and efficient use of compute. These rules guide architecture, planning, code style, and model-choice discipline when working with AI copilots.
+The thinking behind it is in
+[How I design AI systems](https://roadmaps.substack.com/p/how-i-design-ai-systems-a-complete):
+the model is not the product, and the system around it is. This repo is the kit that puts the article's
+workflow into practice.
 
-They are intentionally small, opinionated, and built for speed.
+## The loop
 
-⸻
+1. **Define, design, deliver.** Agree on the problem, explore a few concepts, mock up the one you pick.
+   The human approves before any code.
+2. **Phase the work.** Proof of concept, then the UX, then data quality. Don't polish a flow around
+   something that doesn't work yet.
+3. **Plan each task.** An exec plan states scope, success criteria and how it will be verified.
+4. **Test first.** Watch the test fail, then make it pass.
+5. **Verify on the real thing.** Say which check produced the evidence, and how strong it is.
+6. **Hand off.** End every session with a log entry either agent can pick up from.
+7. **Memorialize learnings.** Anything a successor would otherwise rediscover goes in `LEARNINGS.md`.
 
-📘 What’s Inside
+The human owns product decisions, design review and every production step. Agents implement.
 
-Each rule lives as a modular .mdc file inside rules/. Cursor automatically loads and applies them in projects using this repo via worktrees.
+## What's here
 
-1. Architecture Principles
+| File | Use |
+| --- | --- |
+| [`templates/AGENTS.md`](templates/AGENTS.md) | The working agreement. Codex, Cursor and most agents read `AGENTS.md` |
+| [`templates/CLAUDE.md`](templates/CLAUDE.md) | Points Claude at `AGENTS.md`, so both agents follow one agreement |
+| [`templates/EXECPLAN.md`](templates/EXECPLAN.md) | Plan, progress, decisions, evidence and the session log |
+| [`templates/LEARNINGS.md`](templates/LEARNINGS.md) | Short, durable lessons the agents read every session |
+| [`engineering.md`](engineering.md) | Code principles: small, clear, tested, minimal diffs |
+| [`examples.md`](examples.md) | Where this came from, and what it caught |
 
-High-leverage architectural constraints for small and mid-sized AI-driven products. Helps copilots generate stable, scalable solutions without over-engineering.
+## Use it
 
-2. Clean, Simple, DRY
-
-Forces copilots to favor clarity, simplicity, and reuse. Reduces surface area, makes diffs smaller, and keeps projects maintainable.
-
-3. Full-Stack Programming
-
-Guidance for end-to-end implementation—React, backend, DB—so AI agents produce coherent, integrated features rather than isolated fragments.
-
-4. Effective Planning
-
-Planning templates and conventions that keep tasks atomic, scoped, and easy to execute. Prevents runaway context, multi-feature merges, and diff bloat.
-
-5. Model Economy
-
-Rules for using Sonnet, Codex, and Cursor efficiently—minimizing token burn while maintaining speed. Includes:
-	•	model-check header
-	•	CHEAP / STANDARD / PREMIUM task classification
-	•	guardrails against slow or expensive actions
-
-6. Models Rule (Meta-Rule)
-
-Lightweight behavioral constraints for Cursor’s model itself (e.g., output format, cost-aware classification). Ensures consistent model behavior across tasks.
-
-⸻
-
-🎯 Why This Exists
-
-AI copilots are powerful, but without guardrails they can:
-	•	escalate models unnecessarily
-	•	rewrite full files
-	•	load huge contexts
-	•	thrash between tasks
-	•	burn compute without improving results
-
-These rules solve that by giving the models a shared language, shared constraints, and consistent execution framework.
-
-⸻
-
-🛠 How to Use
-
-You can consume these rules in three ways:
-
-1. Add as a Git worktree (recommended)
-
-   git worktree add .cursor cursor-worktree
-
-   Then use Cursor’s “Project Rules” interface to enable them.
-
-2. Clone the repo and copy the rules folder
-
-Simple, direct, portable.
-
-3. Import specific rules selectively
-
-Each .mdc file is standalone and safe to use independently.
-
-⸻
-
-📄 Repo Structure
-
-/rules
-  architecture-principles.mdc
-  clean-simple-dry.mdc
-  full-stack.mdc
-  implement-plan.mdc
-  model-economy.mdc
-  models.mdc
-
-  🤝 Contributing
-
-This playbook will evolve as Cursor, Sonnet, and Codex evolve.
-PRs and discussions are welcome—especially around:
-	•	improved model-economy heuristics
-	•	React/Next.js patterns
-	•	better planning formats
-	•	safety or correctness guardrails
+Copy `templates/` into a new repo's root, fill in the verification commands in `AGENTS.md`, and start
+the first task from `EXECPLAN.md`. Keep `docs/plans/` out of Git if the plans are for the agents only.
