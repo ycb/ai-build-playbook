@@ -22,6 +22,8 @@ workflow into practice.
 
 The human owns product decisions, design review and every production step. Agents implement.
 
+Built with it: [Ours](https://github.com/ycb/ours-public).
+
 ## What's here
 
 | File | Use |
@@ -31,7 +33,6 @@ The human owns product decisions, design review and every production step. Agent
 | [`templates/EXECPLAN.md`](templates/EXECPLAN.md) | Plan, progress, decisions, evidence and the session log |
 | [`templates/LEARNINGS.md`](templates/LEARNINGS.md) | Short, durable lessons the agents read every session |
 | [`engineering.md`](engineering.md) | Code principles: small, clear, tested, minimal diffs |
-| [`examples.md`](examples.md) | Where this came from, and what it caught |
 
 ## Use it
 
